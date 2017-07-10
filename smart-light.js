@@ -4,19 +4,15 @@ let ConfigWSRegistrationInfo = require('./config.json');
 
 let WebSocket = require('ws');
 
-let ConfigWSConnection = {
-    'scheme': 'wss',
-    'domain': 'api.artik.cloud',
-    'version': 'v1.1',
-    'path': 'websocket',
-};
-
-
 /**
- * Websocket instance with connection info
- */
-let ws = new WebSocket(
-    getConnectionString(ConfigWSConnection));
+* setting query parameter "ack=true" will send an acknowledge message
+* for every message sent.
+*/
+const websocketUrl = "wss://api.artik.cloud/v1.1/websocket?ack=true";
+
+
+console.log("Connecting to url: ", websocketUrl);
+let ws = new WebSocket(websocketUrl);
 
 /**
  * Websocket 'open' listener
@@ -52,27 +48,6 @@ ws.on('message', function(data, flags) {
 ws.on('close', function() {
     console.log('Websocket connection is closed ...');
 });
-
-/**
-* Get the connection string to connect to /live firehose endpoint 
-* 
-* @param {object} config websocket connection info
-* @param {boolean} enableAck server sends acknowledge when messages are sent 
-* @return {string} connection string url
-**/
-function getConnectionString(config, enableAck = true) {
-    let connectionString =
-        config.scheme + '://' +
-        config.domain + '/' +
-        config.version + '/' +
-        config.path;
-
-    connectionString += '?ack=' + enableAck;
-
-    console.log('Connecting to: ', connectionString);
-
-    return connectionString;
-}
 
 
 /**
@@ -135,24 +110,36 @@ function sendMessage(payload, prefix='Send message:\n') {
 * @param {object} response contains a list of actions 
 * called on the device. 
 * 
-* @example
-* response['data']['actions'] = [{name: setOn}]
+   //Example message with type: action
+
+   {
+   "type":"action","cts":1451436813630,"ts":1451436813631,
+   "mid":"37e1d61b61b74a3ba962726cb3ef62f1",
+   "sdid”:”1abe...”,
+   "ddid”:”2abc...”,
+   "data":{"actions":[{"name":"setOn","parameters":{}}]},
+   "ddtid":"dtf3cdb9880d2e418f915fb9252e267051",
+   "uid":"3abc...”,
+   "boid”:”4abc...",
+   “mv":1
+   }
+
 */
 function handleAction(response) {
     let actions = response.data.actions;
 
     actions.forEach(function(action) {
         switch (action.name.toUpperCase()) {
-        case 'SETON':
-            updateDeviceField({state: true});
-            break;
+            case 'SETON':
+                updateDeviceField({state: true});
+                break;
 
-        case 'SETOFF':
-            updateDeviceField({state: false});
-            break;
+            case 'SETOFF':
+                updateDeviceField({state: false});
+                break;
 
-        default:
-            console.log('Unknown action for device');
+            default:
+                console.log('Unknown action for device');
         }
     });
 }

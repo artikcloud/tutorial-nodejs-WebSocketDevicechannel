@@ -1,9 +1,12 @@
-# Tutorial Nodejs Websocket Device Channel
+# Tutorial Nodejs WebSocket Device Channel
 
-This is a starter code to connect to ARTIK Cloud Websocket Device Channel (/websocket) endpoint.   By running this sample you will learn to:
+This start code emulates a smart light connecting to ARTIK Cloud [device channel WebSocket](https://developer.artik.cloud/documentation/data-management/rest-and-websockets.html#device-channel-websocket) (/websocket). You will learn how to
 
-- Connect to the ARTIK Cloud Device Channel websocket url.
-- Monitor in realtime actions sent to ARTIK Cloud to the destination device.
+- connect to the device channel WebSocket
+- receive Actions from ARTIK Cloud via the channel
+- send data messages to ARTIK Cloud via the channel
+
+Consult [An IoT remote control](https://developer.artik.cloud/documentation/tutorials/an-iot-remote-control.html#an-iot-remote-control) for how to build a real smart light using Raspberry Pi.
 
 ## Requirements
 
@@ -44,7 +47,7 @@ $ npm install
 ##### Run Project
 
 ```bash
-$ node tutorial-websocket-devicechannel.js
+$ node smart-light.js
 ```
 
 ## Demo:
@@ -52,7 +55,7 @@ $ node tutorial-websocket-devicechannel.js
 1. Your terminal screen will look similar to below after you run your project.   A websocket connection is open and will output actions sent to the device.
 
 ```bash
-$ node tutorial-websocket-devicechannel.js 
+$ node smart-light.js 
 
 Connecting to:  wss://api.artik.cloud/v1.1/websocket?ack=true
 Websocket connection is open ...
@@ -87,7 +90,10 @@ Send message and update field:
 Received message: {"data":{"mid":"057a3c0c273f4cfa8d4fadc78928f325","cid":"1499386297324"}}
 ```
 
-6. Clean up by removing the Example Simple Smart Light you created earlier.ls
+6. View “DATA LOGS” (messages) at [My ARTIK Cloud](https://my.artik.cloud), you should see the message with state to true is received by ARTIK Cloud.  
+
+![](./screenshots/sc3.png)
+
 
 ## More about ARTIK Cloud
 
