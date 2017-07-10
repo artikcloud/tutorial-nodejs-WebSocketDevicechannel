@@ -1,10 +1,12 @@
-# Tutorial Nodejs WebSocket Device Channel
+# Tutorial Nodejs device channel WebSocket
 
-This start code emulates a smart light connecting to ARTIK Cloud [device channel WebSocket](https://developer.artik.cloud/documentation/data-management/rest-and-websockets.html#device-channel-websocket) (/websocket). You will learn how to
+This starter code emulates a smart light connecting to ARTIK Cloud [device channel WebSocket](https://developer.artik.cloud/documentation/data-management/rest-and-websockets.html#device-channel-websocket) (/websocket). You will learn how to
 
 - connect to the device channel WebSocket
 - receive Actions from ARTIK Cloud via the channel
 - send data messages to ARTIK Cloud via the channel
+
+Consult [Node.js Firehose WebSocket](https://github.com/artikcloud/tutorial-nodejs-WebSocketFirehose) for how to use Firehose WebSocket.
 
 Consult [An IoT remote control](https://developer.artik.cloud/documentation/tutorials/an-iot-remote-control.html#an-iot-remote-control) for how to build a real smart light using Raspberry Pi.
 
@@ -52,13 +54,13 @@ $ node smart-light.js
 
 ## Demo:
 
-1. Your terminal screen will look similar to below after you run your project.   A websocket connection is open and will output actions sent to the device.
+1. Your terminal screen will look similar to below after you run your project.   A WebSocket connection is open and will output actions sent to the device.
 
 ```bash
 $ node smart-light.js 
 
 Connecting to:  wss://api.artik.cloud/v1.1/websocket?ack=true
-Websocket connection is open ...
+WebSocket connection is open ...
 ```
 
 2. A registration message is sent to complete authentication and register devices.   This must be done within 30 seconds, otherwise connection will timeout.

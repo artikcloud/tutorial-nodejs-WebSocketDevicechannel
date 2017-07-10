@@ -18,7 +18,7 @@ let ws = new WebSocket(websocketUrl);
  * Websocket 'open' listener
  */
 ws.on('open', function() {
-    console.log('Websocket connection is open ...');
+    console.log('WebSocket connection is open ...');
     sendRegistrationMessage();
 });
 
@@ -153,3 +153,5 @@ function handleAction(response) {
 function getTimeMillis() {
     return parseInt(Date.now().toString());
 }
+
+
